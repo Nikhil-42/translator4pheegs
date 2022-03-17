@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <title>TTATACAATAGCTAGAGAAATTTAAGGTAC4TAAACAATTATTATGTAG</title>
+  </head>
+  <body style="background-color:lavender">
+    <header></header>
+    <main style="text-align: center">
+      <h1>TTATACAATAGCTAGAGAAATTTAAGGTAC<br>4<br>TAAACAATTATTATGTAG</h1>
+      <div>TAAAGAAATACTAGCTTAATTTCATTA</div>
+      <textarea id="plaintext" style="width: 90%;"></textarea><br>
+      <br>
+      <div>AAGACTTAAACAATTTACTTAATTTCATTA</div>
+      <textarea id="ciphertext" style="width: 90%;"></textarea><br>
+      <br>
+      <button onclick="convert()">AAGAGGAGCTTCATTTACTTA</button>
+    </main>
+    <footer></footer>
+  </body>
+  <script>
+    plaintext_area = document.getElementById("plaintext");
+    ciphertext_area = document.getElementById("ciphertext");
+    last_plaintext = plaintext_area.value;
+    last_ciphertext = ciphertext_area.value;
+
+    encoder = {
+      "a": "Aat",
+      "b": "Aac",
+      "c": "Aag",
+      "d": "Ata",
+      "e": "Att",
+      "f": "Atc",
+      "g": "Atg",
+      "h": "Aca",
+      "i": "Act",
+      "j": "Acc",
+      "k": "Acg",
+      "l": "Aga",
+      "m": "Agt",
+      "n": "Agc",
+      "o": "Agg",
+      "p": "Taa",
+      "q": "Tat",
+      "r": "Tac",
+      "s": "Tag",
+      "t": "Tta",
+      "u": "Ttt",
+      "v": "Ttc",
+      "w": "Ttg",
+      "x": "Tca",
+      "y": "Tct",
+      "z": "Tcc"
+    }
+
+    decoder = {
+      "aat": "a",
+      "aac": "b",
+      "aag": "c",
+      "ata": "d",
+      "att": "e",
+      "atc": "f",
+      "atg": "g",
+      "aca": "h",
+      "act": "i",
+      "acc": "j",
+      "acg": "k",
+      "aga": "l",
+      "agt": "m",
+      "agc": "n",
+      "agg": "o",
+      "taa": "p",
+      "tat": "q",
+      "tac": "r",
+      "tag": "s",
+      "tta": "t",
+      "ttt": "u",
+      "ttc": "v",
+      "ttg": "w",
+      "tgt": "w",
+      "tca": "x",
+      "tct": "y",
+      "tcc": "z"
+    }
+
+    encode = function(plaintext) {
+      ciphertext = "";
+      plaintext = plaintext.toLowerCase();
+      for (c in plaintext) {
+        char = plaintext[c];
+        if (char in encoder) {
+          ciphertext += encoder[plaintext[c]];
+        } else {
+          ciphertext += char;
+        }
+      }
+      return ciphertext.toUpperCase();
+    };
+
+    decode = function(ciphertext) {
+      plaintext = "";
+      ciphertext = ciphertext.toLowerCase();
+      for (c = 0; c < ciphertext.length;) {
+        char = ciphertext.substring(c, c + 3);
+        if (char in decoder) {
+          plaintext += decoder[char];
+          c += 3;
+        } else {
+          plaintext += ciphertext[c];
+          c += 1;
+        }
+      }
+      return plaintext;
+    };
+
+    convert = function() {
+      if (plaintext_area.value != last_plaintext) {
+        ciphertext_area.value = encode(plaintext_area.value);
+      } else if (ciphertext_area.value != last_ciphertext) {
+        plaintext_area.value = decode(ciphertext_area.value);
+      }
+      last_ciphertext = ciphertext_area.value;
+      last_plaintext = plaintext_area.value;
+    };
+  </script>
+</html>
