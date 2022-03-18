@@ -5,19 +5,19 @@
     <style>
       body {text-align: center;}
       h1 {font-family: Georgia; font-size: 3vw;}
-      div {font-family: Georgia; font-size: 1.5vw}
-      textarea {width: 100%; font-family: Georgia; font-size: 1vw;}
+      label {font-family: Georgia; font-size: 1.5vw}
+      input {width: 96vw; font-family: Georgia; font-size: 1vw; margin: 1vw;}
     </style>
     <title>TTATacAatAgcTagAgaAatTtaAggTac4TAAAcaAttAttAtgTag</title>
   </head>
   <body style="background-color:lavender;">
     <main>
       <h1>TTATacAatAgcTagAgaAatTtaAggTac<br>4<br>TAAAcaAttAttAtgTag</h1>
-      <div>TaaAgaAatActAgcTtaAttTcaTta</div>
-      <textarea id="plaintext" onkeyup="convert(1)"></textarea><br>
+      <label for="plaintext">TaaAgaAatActAgcTtaAttTcaTta</label>
+      <input type="text" id="plaintext" data-clear-btn="true" onkeyup="convert(1)"></input>
       <br>
-      <div>AagActTaaAcaAttTacTtaAttTcaTta</div>
-      <textarea id="ciphertext" onkeyup="convert(-1)"></textarea>
+      <label for="ciphertext">AagActTaaAcaAttTacTtaAttTcaTta</label>
+      <input type="text" id="ciphertext" data-clear-btn="true" onkeyup="convert(-1)"></input>
     </main>
   </body>
   <script>
@@ -26,64 +26,8 @@
     last_plaintext = plaintext_area.value;
     last_ciphertext = ciphertext_area.value;
 
-    encoder = {
-      "a": "Aat",
-      "b": "Aac",
-      "c": "Aag",
-      "d": "Ata",
-      "e": "Att",
-      "f": "Atc",
-      "g": "Atg",
-      "h": "Aca",
-      "i": "Act",
-      "j": "Acc",
-      "k": "Acg",
-      "l": "Aga",
-      "m": "Agt",
-      "n": "Agc",
-      "o": "Agg",
-      "p": "Taa",
-      "q": "Tat",
-      "r": "Tac",
-      "s": "Tag",
-      "t": "Tta",
-      "u": "Ttt",
-      "v": "Ttc",
-      "w": "Ttg",
-      "x": "Tca",
-      "y": "Tct",
-      "z": "Tcc"
-    }
-
-    decoder = {
-      "aat": "a",
-      "aac": "b",
-      "aag": "c",
-      "ata": "d",
-      "att": "e",
-      "atc": "f",
-      "atg": "g",
-      "aca": "h",
-      "act": "i",
-      "acc": "j",
-      "acg": "k",
-      "aga": "l",
-      "agt": "m",
-      "agc": "n",
-      "agg": "o",
-      "taa": "p",
-      "tat": "q",
-      "tac": "r",
-      "tag": "s",
-      "tta": "t",
-      "ttt": "u",
-      "ttc": "v",
-      "ttg": "w",
-      "tgt": "w",
-      "tca": "x",
-      "tct": "y",
-      "tcc": "z"
-    }
+    encoder = {"a": "Aat", "b": "Aac", "c": "Aag", "d": "Ata", "e": "Att", "f": "Atc", "g": "Atg", "h": "Aca", "i": "Act", "j": "Acc", "k": "Acg", "l": "Aga", "m": "Agt", "n": "Agc", "o": "Agg", "p": "Taa", "q": "Tat", "r": "Tac", "s": "Tag", "t": "Tta", "u": "Ttt", "v": "Ttc", "w": "Ttg", "x": "Tca", "y": "Tct", "z": "Tcc"}
+    decoder = {"aat": "a", "aac": "b", "aag": "c", "ata": "d", "att": "e", "atc": "f", "atg": "g", "aca": "h", "act": "i", "acc": "j", "acg": "k", "aga": "l", "agt": "m", "agc": "n", "agg": "o", "taa": "p", "tat": "q", "tac": "r", "tag": "s", "tta": "t", "ttt": "u", "ttc": "v", "ttg": "w", "tgt": "w", "tca": "x", "tct": "y", "tcc": "z"}
 
     encode = function(plaintext) {
       ciphertext = "";
