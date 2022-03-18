@@ -1,22 +1,24 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="en">
   <head>
-    <meta charset="utf-8">
-    <title>TTATACAATAGCTAGAGAAATTTAAGGTAC4TAAACAATTATTATGTAG</title>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      body {text-align: center;}
+      h1 {font-family: Georgia; font-size: 3vw;}
+      div {font-family: Georgia; font-size: 1.5vw}
+      textarea {width: 100%; font-family: Georgia; font-size: 1vw;}
+    </style>
+    <title>TTATacAatAgcTagAgaAatTtaAggTac4TAAAcaAttAttAtgTag</title>
   </head>
-  <body style="background-color:lavender">
-    <header></header>
-    <main style="text-align: center">
-      <h1>TTATACAATAGCTAGAGAAATTTAAGGTAC<br>4<br>TAAACAATTATTATGTAG</h1>
-      <div>TAAAGAAATACTAGCTTAATTTCATTA</div>
-      <textarea id="plaintext" style="width: 90%;"></textarea><br>
+  <body style="background-color:lavender;">
+    <main>
+      <h1>TTATacAatAgcTagAgaAatTtaAggTac<br>4<br>TAAAcaAttAttAtgTag</h1>
+      <div>TaaAgaAatActAgcTtaAttTcaTta</div>
+      <textarea id="plaintext" onkeyup="convert(1)"></textarea><br>
       <br>
-      <div>AAGACTTAAACAATTTACTTAATTTCATTA</div>
-      <textarea id="ciphertext" style="width: 90%;"></textarea><br>
-      <br>
-      <button onclick="convert()">AAGAGGAGCTTCATTTACTTA</button>
+      <div>AagActTaaAcaAttTacTtaAttTcaTta</div>
+      <textarea id="ciphertext" onkeyup="convert(-1)"></textarea>
     </main>
-    <footer></footer>
   </body>
   <script>
     plaintext_area = document.getElementById("plaintext");
@@ -85,11 +87,16 @@
 
     encode = function(plaintext) {
       ciphertext = "";
+      input = plaintext;
       plaintext = plaintext.toLowerCase();
       for (c in plaintext) {
         char = plaintext[c];
         if (char in encoder) {
-          ciphertext += encoder[plaintext[c]];
+          if (input[c] == char) {
+            ciphertext += encoder[char];
+          } else {
+            ciphertext += encoder[char].toUpperCase();
+          }
         } else {
           ciphertext += char;
         }
@@ -99,11 +106,16 @@
 
     decode = function(ciphertext) {
       plaintext = "";
+      input = ciphertext;
       ciphertext = ciphertext.toLowerCase();
       for (c = 0; c < ciphertext.length;) {
         char = ciphertext.substring(c, c + 3);
         if (char in decoder) {
-          plaintext += decoder[char];
+          if (input[c+1] == ciphertext[c+1]) {
+            plaintext += decoder[char];
+          } else {
+            plaintext += decoder[char].toUpperCase();
+          }
           c += 3;
         } else {
           plaintext += ciphertext[c];
@@ -113,10 +125,10 @@
       return plaintext;
     };
 
-    convert = function() {
-      if (plaintext_area.value != last_plaintext) {
+    convert = function(opt) {
+      if (opt==1 || (opt==0 && plaintext_area.value != last_plaintext)) {
         ciphertext_area.value = encode(plaintext_area.value);
-      } else if (ciphertext_area.value != last_ciphertext) {
+      } else if (opt==-1 || (opt==0 && ciphertext_area.value != last_ciphertext)) {
         plaintext_area.value = decode(ciphertext_area.value);
       }
       last_ciphertext = ciphertext_area.value;
