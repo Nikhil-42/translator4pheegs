@@ -1,25 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
+<html style="font-size: 16px;">
   <head>
-    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="page_type" content="np-template-header-footer-from-plugin">
+    <title>Home</title>
+    <link rel="stylesheet" href="nicepage.css" media="screen"><link rel="stylesheet" href="index.css" media="screen">
+    <meta name="theme-color" content="#478ac9">
+    <meta property="og:title" content="index">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="/">
     <style>
-      body {text-align: center;}
-      h1 {font-family: Georgia; font-size: 3vw;}
-      label {font-family: Georgia; font-size: 1.5vw}
-      input {width: 96vw; font-family: Georgia; font-size: 1vw; margin: 1vw;}
+      textarea {
+        font-family: inherit;
+        width: 100%;
+        height: 25vh;
+        resize: none;
+        border: 0px;
+      }
+      button {
+        font-family: inherit;
+        border: 0px;
+        border-radius: 0px;
+        padding: 2vw;
+        width: 100%;
+        transition-duration: 0.4s;
+      }
+      .layout {
+        display: grid;
+        font-family: Georgia;
+      }
+      .clear {
+        background-color: rgb(211, 105, 102);
+      }
+      .clear:hover {
+        background-color: red;
+      }
+      .copy {
+        background-color: rgb(67, 206, 62);
+      }
+      .copy:hover {
+        background-color: green;
+      }
     </style>
-    <title>TTATacAatAgcTagAgaAatTtaAggTac4TAAAcaAttAttAtgTag</title>
   </head>
-  <body style="background-color:lavender;">
-    <main>
-      <h1>TTATacAatAgcTagAgaAatTtaAggTac<br>4<br>TAAAcaAttAttAtgTag</h1>
-      <label for="plaintext">TaaAgaAatActAgcTtaAttTcaTta</label>
-      <input type="text" id="plaintext" data-clear-btn="true" onkeyup="convert(1)"></input>
-      <br>
-      <label for="ciphertext">AagActTaaAcaAttTacTtaAttTcaTta</label>
-      <input type="text" id="ciphertext" data-clear-btn="true" onkeyup="convert(-1)"></input>
-    </main>
+  <body data-home-page="https://website1614692.nicepage.io/Home.html?version=6b31ae9b-31b6-44a7-b837-4b963051f601" data-home-page-title="Home" class="u-body u-xl-mode"><header class="u-clearfix u-header u-header" id="sec-ddcf"><div class="u-align-center u-clearfix u-sheet u-sheet-1">
+        <h3 class="u-headline u-text u-text-default u-text-1" style="font-family: Georgia; font-size:3.25vw;">TTATACAATAGCTAGAGAAATTTAAGGTAC 4 TAAACAATTATTATGTAG</h3>
+      </div></header>
+    <section class="u-clearfix u-section-1" id="sec-8ed7">
+      <div class="u-clearfix u-sheet u-sheet-1">
+        <div class="u-expanded-width u-list u-list-1">
+          <div class="u-repeater u-repeater-1">
+            <div class="u-container-style u-list-item u-repeater-item">
+              <div class="u-container-layout u-similar-container u-valign-bottom u-container-layout-1">
+                <div class="u-clearfix u-custom-html u-custom-html-1">
+                  <div class="layout">
+                    <textarea id="plaintext" placeholder="plaintext.." onkeyup="convert(1)" style="grid-row: 1; grid-column: 1 / 3;"></textarea>
+                    <button onclick="copy('plaintext')" class="copy" style="grid-row: 2; grid-column: 1;">Copy</button>
+                    <button onclick="wipe('plaintext')" class="clear" style="grid-row: 2; grid-column: 2;">Clear</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="u-container-style u-list-item u-repeater-item">
+              <div class="u-container-layout u-similar-container u-valign-bottom u-container-layout-2">
+                <div class="u-clearfix u-custom-html u-custom-html-2">
+                  <div class="layout">
+                    <textarea id="ciphertext" placeholder="AagActAagActTaaAcaAttTacTtaAttTcaTta.." onkeyup="convert(-1)" style="grid-row: 1; grid-column: 1 / 3;"></textarea>
+                    <button onclick="copy('ciphertext')" class="copy" style="grid-row: 2; grid-column: 1;">Copy</button>
+                    <button onclick="wipe('ciphertext')" class="clear" style="grid-row: 2; grid-column: 2;">Clear</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
   </body>
+
   <script>
     plaintext_area = document.getElementById("plaintext");
     ciphertext_area = document.getElementById("ciphertext");
@@ -78,5 +138,14 @@
       last_ciphertext = ciphertext_area.value;
       last_plaintext = plaintext_area.value;
     };
+
+    wipe = function(id) {
+      document.getElementById(id).value = "";
+      convert(0);
+    };
+
+    copy = function(id) {
+      navigator.clipboard.writeText(document.getElementById(id).value);
+    }
   </script>
 </html>
