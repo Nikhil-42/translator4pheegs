@@ -86,46 +86,62 @@
     last_plaintext = plaintext_area.value;
     last_ciphertext = ciphertext_area.value;
 
-    encoder = {"a": "Aat", "b": "Aac", "c": "Aag", "d": "Ata", "e": "Att", "f": "Atc", "g": "Atg", "h": "Aca", "i": "Act", "j": "Acc", "k": "Acg", "l": "Aga", "m": "Agt", "n": "Agc", "o": "Agg", "p": "Taa", "q": "Tat", "r": "Tac", "s": "Tag", "t": "Tta", "u": "Ttt", "v": "Ttc", "w": "Ttg", "x": "Tca", "y": "Tct", "z": "Tcc"}
-    decoder = {"aat": "a", "aac": "b", "aag": "c", "ata": "d", "att": "e", "atc": "f", "atg": "g", "aca": "h", "act": "i", "acc": "j", "acg": "k", "aga": "l", "agt": "m", "agc": "n", "agg": "o", "taa": "p", "tat": "q", "tac": "r", "tag": "s", "tta": "t", "ttt": "u", "ttc": "v", "ttg": "w", "tgt": "w", "tca": "x", "tct": "y", "tcc": "z"}
+    base = {"0": "A", "1": "T", "2": "C", "3": "G"};
+
+    encoder = {
+      "a": "Aat", "b": "Aac", "c": "Aag", "d": "Ata", "e": "Att", "f": "Atc", "g": "Atg", "h": "Aca", "i": "Act", "j": "Acc", "k": "Acg", "l": "Aga", "m": "Agt", "n": "Agc", "o": "Agg", "p": "Taa", "q": "Tat", "r": "Tac", "s": "Tag", "t": "Tta", "u": "Ttt", "v": "Ttc", "w": "Ttg", "x": "Tca", "y": "Tct", "z": "Tcc",
+      "A": "AAT", "B": "AAC", "C": "AAG", "D": "ATA", "E": "ATT", "F": "ATC", "G": "ATG", "H": "ACA", "I": "ACT", "J": "ACC", "K": "ACG", "L": "AGA", "M": "AGT", "N": "AGC", "O": "AGG", "P": "TAA", "Q": "TAT", "R": "TAC", "S": "TAG", "T": "TTA", "U": "TTT", "V": "TTC", "W": "TTG", "X": "TCA", "Y": "TCT", "Z": "TCC",
+      ".": "aaa", "?": "ttt", "!": "ccc", ",": "aat", "'": "aac", "#": "ggg",
+    };
 
     encode = function(plaintext) {
       ciphertext = "";
-      input = plaintext;
-      plaintext = plaintext.toLowerCase();
       for (c in plaintext) {
         char = plaintext[c];
         if (char in encoder) {
-          if (input[c] == char) {
-            ciphertext += encoder[char];
-          } else {
-            ciphertext += encoder[char].toUpperCase();
-          }
+          ciphertext += encoder[char];
         } else {
-          ciphertext += char;
+          ciphertext += plaintext[c];
         }
       }
+
+      ciphertext = ciphertext.replace(
+        /ggg\d+(?:(?:aat)\d+)*(?:(?:aaa)\d+)?/g,
+        number_str => "ggg" + Number(number_str.substring(3).replace("aat", "").replace("aaa", ".")).toString(4).replace(/\d/g, n => base[n]).replace(".", "aaa")
+      );
+
       return ciphertext;
     };
 
+    decoder = {};
+    for (plaintext in encoder) {
+      decoder[encoder[plaintext]] = plaintext;
+    }
+
+    debase = {};
+    for (num in base) {
+      debase[base[num]] = num;
+    }
+
     decode = function(ciphertext) {
+
+      ciphertext = ciphertext.replace(
+        /ggg[ATCG]+(?:(?:aat)[ATCG]+)*(?:(?:aaa)[ATCG]+)?/g,
+        number_str => {halves = number_str.substring(3).replace(/[ATCG]/g, n => debase[n]).replace("aaa", ".").split("."); return "#" + (parseInt(halves[0], 4) + (parseInt(halves[1], 4) / 4**halves[1].length));}
+      );
+
       plaintext = "";
-      input = ciphertext;
-      ciphertext = ciphertext.toLowerCase();
       for (c = 0; c < ciphertext.length;) {
         char = ciphertext.substring(c, c + 3);
         if (char in decoder) {
-          if (input[c+1] == ciphertext[c+1]) {
-            plaintext += decoder[char];
-          } else {
-            plaintext += decoder[char].toUpperCase();
-          }
+          plaintext += decoder[char];
           c += 3;
         } else {
           plaintext += ciphertext[c];
           c += 1;
         }
       }
+
       return plaintext;
     };
 
