@@ -21357,6 +21357,9 @@ h6 {
 .u-body {
   color: #111111;
   background-color: lavender;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
   --effect-scale: 1.1;
 }
 /*end-variables color*/
