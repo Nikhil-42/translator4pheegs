@@ -145,12 +145,47 @@
       return plaintext;
     };
 
-    convert = function(opt) {
-      if (plaintext_area.value.includes("<3") || plaintext_area.value.includes("love")) {
-        document.body.style.backgroundImage = "url('https://media.istockphoto.com/photos/heart-bokeh-background-picture-id508495114?b=1&k=20&m=508495114&s=170667a&w=0&h=Vr2ke8oeH3aKWqmy6nUQ6UVJUj1sVSihfzp48Zm4Wyo=')";
-      } else {
-        document.body.style.backgroundImage = "";
+    make_bg = function(url) {
+      return function() {document.body.style.backgroundImage = "url('" + url + "')";};
+    };
+
+    keywords = {
+      "love": make_bg('https://media.istockphoto.com/photos/heart-bokeh-background-picture-id508495114?b=1&k=20&m=508495114&s=170667a&w=0&h=Vr2ke8oeH3aKWqmy6nUQ6UVJUj1sVSihfzp48Zm4Wyo='),
+      "<3": make_bg('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbSFBEsp29IjSy4UK2w04BOcT7djzT4HTIXA&usqp=CAU'),
+      "surf": make_bg('https://wallpaperaccess.com/full/486709.jpg'),
+      "dragon": make_bg('resources/4DragonBG.png'),
+    }
+
+    find_changed_words = function(original, updated) {
+      original_words = original.split(' ');
+      updated_words = updated.split(' ');
+      changed_words = [];
+
+      o_i = 0;
+      c_i = 0;
+      while (o_i < original_words.length && c_i < updated_words.length) {
+        if (original_words[o_i] == updated_words[c_i]) {
+          o_i++;
+          c_i++;
+        } else {
+          changed_words.push(updated_words[c_i]);
+          c_i++;
+          if (original_words[o_i] != updated_words[c_i]) {
+            o_i++;
+          }
+        }
       }
+      for (i = c_i; i < updated_words.length; i++) {
+        changed_words.push(updated_words[i]);
+      }
+
+      return changed_words;
+    };
+
+    convert = function(opt) {
+      find_changed_words(last_plaintext, plaintext_area.value).forEach(word => {
+        (keywords[word] || function() {})();
+      });
 
       if (opt==1 || (opt==0 && plaintext_area.value != last_plaintext)) {
         ciphertext_area.value = encode(plaintext_area.value);
