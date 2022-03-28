@@ -91,7 +91,7 @@
     encoder = {
       "a": "Aat", "b": "Aac", "c": "Aag", "d": "Ata", "e": "Att", "f": "Atc", "g": "Atg", "h": "Aca", "i": "Act", "j": "Acc", "k": "Acg", "l": "Aga", "m": "Agt", "n": "Agc", "o": "Agg", "p": "Taa", "q": "Tat", "r": "Tac", "s": "Tag", "t": "Tta", "u": "Ttt", "v": "Ttc", "w": "Ttg", "x": "Tca", "y": "Tct", "z": "Tcc",
       "A": "AAT", "B": "AAC", "C": "AAG", "D": "ATA", "E": "ATT", "F": "ATC", "G": "ATG", "H": "ACA", "I": "ACT", "J": "ACC", "K": "ACG", "L": "AGA", "M": "AGT", "N": "AGC", "O": "AGG", "P": "TAA", "Q": "TAT", "R": "TAC", "S": "TAG", "T": "TTA", "U": "TTT", "V": "TTC", "W": "TTG", "X": "TCA", "Y": "TCT", "Z": "TCC",
-      ".": "aaa", "?": "ttt", "!": "ccc", ",": "aat", "'": "aac", "#": "ggg",
+      ".": "aaa", "?": "ttt", "!": "ccc", ",": "aat", "'": "aac", "#": "ggc",
     };
 
     encode = function(plaintext) {
@@ -106,8 +106,8 @@
       }
 
       ciphertext = ciphertext.replace(
-        /ggg\d+(?:(?:aat)\d+)*(?:(?:aaa)\d+)?/g,
-        number_str => "ggg" + Number(number_str.substring(3).replace("aat", "").replace("aaa", ".")).toString(4).replace(/\d/g, n => base[n]).replace(".", "aaa")
+        /\d+(?:(?:aat)\d{3})*(?:(?:aaa)\d+)?/g,
+        number_str => "ggg" + Number(number_str.replaceAll("aat", "").replace("aaa", ".")).toString(4).replace(/\d/g, n => base[n]).replace(".", "aaa")
       );
 
       return ciphertext;
@@ -127,7 +127,7 @@
 
       ciphertext = ciphertext.replace(
         /ggg[ATCG]+(?:(?:aat)[ATCG]+)*(?:(?:aaa)[ATCG]+)?/g,
-        number_str => {halves = number_str.substring(3).replace(/[ATCG]/g, n => debase[n]).replace("aaa", ".").split("."); return "#" + (parseInt(halves[0], 4) + (halves.length == 2 ? (parseInt(halves[1], 4) / 4**halves[1].length) : 0));}
+        number_str => {halves = number_str.substring(3).replace(/[ATCG]/g, n => debase[n]).replace("aaa", ".").split("."); return (parseInt(halves[0], 4) + (halves.length == 2 ? (parseInt(halves[1], 4) / 4**halves[1].length) : 0));}
       );
 
       plaintext = "";
