@@ -183,15 +183,16 @@
     };
 
     convert = function(opt) {
-      find_changed_words(last_plaintext, plaintext_area.value).forEach(word => {
-        (keywords[word] || function() {})();
-      });
-
       if (opt==1 || (opt==0 && plaintext_area.value != last_plaintext)) {
         ciphertext_area.value = encode(plaintext_area.value);
       } else if (opt==-1 || (opt==0 && ciphertext_area.value != last_ciphertext)) {
         plaintext_area.value = decode(ciphertext_area.value);
       }
+
+      find_changed_words(last_plaintext, plaintext_area.value).forEach(word => {
+        (keywords[word] || function() {})();
+      });
+
       last_ciphertext = ciphertext_area.value;
       last_plaintext = plaintext_area.value;
     };
