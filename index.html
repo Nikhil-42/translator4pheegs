@@ -112,6 +112,8 @@
         number_str => "ggg" + Number(number_str.replaceAll("aat", "").replace("aaa", ".")).toString(4).replace(/\d/g, n => base[n]).replace(".", "aaa")
       );
 
+      ciphertext = ciphertext.replaceAll("<gggG", "<G");
+
       return ciphertext;
     };
 
@@ -143,6 +145,8 @@
           c += 1;
         }
       }
+
+      plaintext = plaintext.replaceAll("<G", "<3");
 
       return plaintext;
     };
