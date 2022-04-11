@@ -150,7 +150,7 @@
 
       plaintext = plaintext.replaceAll("<G", "<3");
       plaintext = plaintext.replace(/\?(?=(?:\!|\?)*[a-zA-Z])/g, "¿");
-      plaintext = plaintext.replace(/\!(?=(?:\!|\?)*[a-zA-Z])/g, "¡");
+      plaintext = plaintext.replace(/\!(?=(?:\!|\¿)*[a-zA-Z])/g, "¡");
 
       return plaintext;
     };
