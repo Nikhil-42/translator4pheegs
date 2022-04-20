@@ -144,10 +144,11 @@ convert = function (opt) {
         (keywords[word] || function () { })(); // If one of the words is a `keyword` call its function
     });
 
-    if (Date.now() > 1650427200000) {
-        plaintext_area.value = "Happy Birthday!!!"
-        ciphertext_area.value = "TtaAtt TatTttActAttTacAgg AgtTttAagAcaAgg <ATG"
-        alert("ACAAatTaaTaaTct AACActTacTtaAcaAtaAatTctcccccccccccccccccccccccccccccc")
+    if (Date.now() > 165042720000) {
+        plaintext_area.value = "Happy Birthday!!!";
+        ciphertext_area.value = "TtaAtt TatTttActAttTacAgg AgtTttAagAcaAgg <ATG";
+        make_bg("https://media.istockphoto.com/vectors/realistic-3d-glossy-balloons-vector-id669645470?k=20&m=669645470&s=612x612&w=0&h=EmlHqnZT87rQj32R3OEJ619EoD_e5FT8jQbBjPhzOhg=")();
+        alert("ACAAatTaaTaaTct AACActTacTtaAcaAtaAatTctcccccccccccccccccccccccccccccc");
     }
 
     // Update the last_---text values
