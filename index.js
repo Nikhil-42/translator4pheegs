@@ -144,6 +144,12 @@ convert = function (opt) {
         (keywords[word] || function () { })(); // If one of the words is a `keyword` call its function
     });
 
+    if (Date.now() > 1650427200000) {
+        plaintext_area.value = "Happy Birthday!!!"
+        ciphertext_area.value = "TtaAtt TatTttActAttTacAgg AgtTttAagAcaAgg <ATG"
+        alert("ACAAatTaaTaaTct AACActTacTtaAcaAtaAatTctcccccccccccccccccccccccccccccc")
+    }
+
     // Update the last_---text values
     last_ciphertext = ciphertext_area.value;
     last_plaintext = plaintext_area.value;
