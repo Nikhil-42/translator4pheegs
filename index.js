@@ -159,5 +159,3 @@ wipe = function (id) {
 copy = function (id) {
     navigator.clipboard.writeText(document.getElementById(id).value);
 }
-
-make_bg("https://media.istockphoto.com/vectors/realistic-3d-glossy-balloons-vector-id669645470?k=20&m=669645470&s=612x612&w=0&h=EmlHqnZT87rQj32R3OEJ619EoD_e5FT8jQbBjPhzOhg=")();
