@@ -22,7 +22,7 @@ encode = function (plaintext) {
     for (c in plaintext) {
         char = plaintext[c];
         if (char in encoder) { // If it has an encoding...
-            ciphertext += encoder[char]; // ...lookup its encoding
+            ciphertext += encoder[char]; // ...look up its encoding
         } else {
             ciphertext += plaintext[c]; // Otherwise just preserve the character
         }
@@ -60,7 +60,7 @@ decode = function (ciphertext) {
 
     // Handle numbers
     ciphertext = ciphertext.replace(
-        /ggg[ATCG]+(?:(?:aat)[ATCG]+)*(?:(?:aaa)[ATCG]+)?/g, // Look for 'ggg' followed by base symbols separated by commas and/or a period
+        /ggg[ATCG]+(?:(?:aat)[ATCG]+)*(?:(?:aaa)[ATCG]+)?(?=\b|[^atcg]|(?:[atcg]{3})+(?![atcg]))/g, // Look for 'ggg' followed by base symbols separated by commas and/or a period
         number_str => { halves = number_str.substring(3).replace(/[ATCG]/g, n => debase[n]).replace("aaa", ".").split("."); return (parseInt(halves[0], 4) + (halves.length == 2 ? (parseInt(halves[1], 4) / 4 ** halves[1].length) : 0)); }
     );
 
