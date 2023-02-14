@@ -103,7 +103,7 @@ keywords = {
     "dragon": make_bg('resources/4DragonBG.png'),
     "valentine": function() {
         document.body.style.backgroundImage = "url('resources/pheeg_valentine.png')";
-        document.body.style.backgroundSize = "10%";
+        document.body.style.backgroundSize = "50%";
         document.body.style.backgroundRepeat = "repeat";
     },
 }
