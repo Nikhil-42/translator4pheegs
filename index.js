@@ -88,7 +88,11 @@ decode = function (ciphertext) {
 
 // Returns a function which sets the background to the give url
 make_bg = function (url) {
-    return function () { document.body.style.backgroundImage = "url('" + url + "')"; };
+    return function () {
+        document.body.style.backgroundImage = "url('" + url + "')";
+        document.body.style.backgroundSize = "cover";
+        document.body.style.backgroundRepeat = "no-repeat";
+    };
 };
 
 // Maps keywords to actions which should be performed when they are typed
@@ -97,6 +101,11 @@ keywords = {
     "<3": make_bg('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbSFBEsp29IjSy4UK2w04BOcT7djzT4HTIXA&usqp=CAU'),
     "surf": make_bg('https://wallpaperaccess.com/full/486709.jpg'),
     "dragon": make_bg('resources/4DragonBG.png'),
+    "valentine": function() {
+        document.body.style.backgroundImage = "url('resources/pheeg_valentine.png')";
+        document.body.style.backgroundSize = "10%";
+        document.body.style.backgroundRepeat = "repeat";
+    },
 }
 
 // Returns a list denoting all the words which have been changed between `original` and `updated`
